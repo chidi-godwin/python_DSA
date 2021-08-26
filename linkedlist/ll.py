@@ -1,4 +1,4 @@
-from .node import Node, DoubleNode
+from .node import Node
 
 class LinkedList:
     def __init__(self) -> None:
@@ -54,6 +54,8 @@ class LinkedList:
         while current_node:
             if current_node.data == data:
                 previous_node.next = current_node.next
+                del current_node
+                return
 
             previous_node = current_node
             current_node = current_node.next
