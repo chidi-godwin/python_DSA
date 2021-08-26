@@ -11,6 +11,9 @@ class DoubleNode(Node):
         super().__init__(data)
         self.prev = None
 
+    def __str__(self) -> str:
+        return f"{self.data} <--> {self.next}"
+
 
 if __name__ == "__main__":
     node = Node(3)
