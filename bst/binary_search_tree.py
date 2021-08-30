@@ -5,16 +5,18 @@ class BinarySearchTree:
     def __init__(self):
         self.root = None
 
-    def _insert_node(self, node: Node, value: float) -> Node:
-        if not node:
-            return Node(value)
+    def _insert_node(self, node: Node, data: float) -> Node:
 
-        if value < node.value:
-            node.leftChild = self._insert_node(node.leftChild, value)
+        if data < node.data:
+            if node.leftChild:
+                self._insert_node(node.leftChild, data)
+            else:
+                node.leftChild = Node(data, node)
         else:
-            node.rightChild = self._insert_node(node.rightChild, value)
-
-        return node
+            if node.rightChild:
+                self._insert_node(node.rightChild, data)
+            else:
+                node.rightChild = Node(data, node)
 
     def _search_node(self, node: Node, value: float):
         if not node:
@@ -34,14 +36,14 @@ class BinarySearchTree:
             return
 
         self._inorder(node.leftChild)
-        print(node.value)
+        print(node.data)
         self._inorder(node.rightChild)
 
     def insert(self, value):
         if self.root:
             self._insert_node(self.root, value)
         else:
-            self.root = Node(value)
+            self.root = Node(value, None)
 
     def search(self, value):
         if self.root:
@@ -60,11 +62,9 @@ class BinarySearchTree:
 
 if __name__ == "__main__":
     BST = BinarySearchTree()
-    bst = BinarySearchTree()
     values = [17, 12, 19, 9, 10, 15, 25, 17, 7]
 
     for value in values:
         BST.insert(value)
 
     BST.traverse()
-    print(BST.search(10))

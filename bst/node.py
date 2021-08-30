@@ -1,10 +1,10 @@
 class Node:
-    def __init__(self, value):
-        self.value = value
+    def __init__(self, data: float, parent: object):
+        self.data = data
         self.leftChild = None
         self.rightChild = None
         self.parent = None
 
 
     def __repr__(self):
-        return f"Node: {self.value}"
+        return f"Node: {self.data}"
