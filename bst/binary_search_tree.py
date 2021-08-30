@@ -75,17 +75,17 @@ class BinarySearchTree:
             else:
                 node.rightChild = Node(data, node)
 
-    def _search_node(self, node: Node, value: float):
+    def _search_node(self, node: Node, data: float):
         if not node:
             return
 
-        if node.value == value:
+        if node.data == data:
             return node
 
-        if value < node.value:
-            return self._search_node(node.leftChild, value)
+        if data < node.data:
+            return self._search_node(node.leftChild, data)
         else:
-            return self._search_node(node.rightChild, value)
+            return self._search_node(node.rightChild, data)
 
     def _inorder(self, node: Node):
 
@@ -128,15 +128,15 @@ class BinarySearchTree:
             return
         self._delete_node(self.root, data)
 
-    def insert(self, value):
+    def insert(self, data):
         if self.root:
-            self._insert_node(self.root, value)
+            self._insert_node(self.root, data)
         else:
-            self.root = Node(value, None)
+            self.root = Node(data, None)
 
-    def search(self, value):
+    def search(self, data):
         if self.root:
-            return self._search_node(self.root, value)
+            return self._search_node(self.root, data)
         raise Exception('List is empty')
 
     def traverse(self):
@@ -151,7 +151,7 @@ class BinarySearchTree:
 
 if __name__ == "__main__":
     BST = BinarySearchTree()
-    values = [17, 12, 19, 9, 10, 15, 25, 17, 7]
+    values = [17, 12, 19, 9, 10, 15, 25, 7,  8]
 
     for value in values:
         BST.insert(value)
@@ -159,4 +159,4 @@ if __name__ == "__main__":
     BST.traverse()
     print("max:", BST.get_max())
     print('min:', BST.get_min())
-
+    BST.delete(17)
