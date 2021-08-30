@@ -5,6 +5,63 @@ class BinarySearchTree:
     def __init__(self):
         self.root = None
 
+    def _delete_node(self, node: Node, data):
+
+        if not node:
+            return
+        
+        if data < node.data:
+            self.delete(node.leftChild, data)
+        elif data > node.data:
+            self.delete(node.rightChild, data)
+        else:
+            if not node.rightChild and not node.leftChild:
+                print(f"Removing leaf node......{node.data}")
+
+                parent = node.parent
+
+                if parent:
+                    if node == parent.leftChild:
+                        parent.leftChild = None
+                    elif node == parent.rightChild:
+                        parent.rightChild = None
+                else:
+                    self.root = None
+                
+                del node
+            elif node.rightChild and not node.leftChild:
+                print(f"Removing node with  single right child")
+                parent = node.parent
+
+                if parent:
+                    parent.rightChild = node.rightChild
+                else:
+                    self.root = node.rightChild
+
+                del node
+            elif node.leftChild and not node.rightChild:
+                print(f"Removing node with  single left child")
+                parent = node.parent
+
+                if parent:
+                    parent.leftChild = node.leftChild
+                else:
+                    self.root = node.leftChild
+
+                del node
+            else:
+                print("Removing node two children")
+                predecessor = self._get_max_value(node.leftChild)
+                temp = predecessor.data
+                predecessor.data = node.data
+                node.data = temp
+
+                parent = predecessor.parent
+                parent.rightChild = None
+
+                del predecessor
+
+
     def _insert_node(self, node: Node, data: float) -> Node:
 
         if data < node.data:
@@ -39,24 +96,25 @@ class BinarySearchTree:
         print(node.data)
         self._inorder(node.rightChild)
 
-    def _get_max_value(self, node: Node) -> float:
+    def _get_max_value(self, node: Node) -> Node:
 
         if not node.rightChild:
-            return node.data
+            return node
     
         return self._get_max_value(node.rightChild)
 
-    def _get_min_value(self, node: Node):
+    def _get_min_value(self, node: Node) -> Node:
 
         if not node.leftChild:
-            return node.data
+            return node
         
         return self._get_min_value(node.leftChild)
+
 
     def get_max(self) -> float:
         if self.root:
             return self._get_max_value(self.root)
-        return None
+        return
 
     def get_min(self) -> float:
 
@@ -64,6 +122,11 @@ class BinarySearchTree:
             return self._get_min_value(self.root)
         
         return None
+
+    def delete(self, data):
+        if not self.root:
+            return
+        self._delete_node(self.root, data)
 
     def insert(self, value):
         if self.root:

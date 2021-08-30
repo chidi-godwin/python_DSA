@@ -1,9 +1,9 @@
 class Node:
     def __init__(self, data: float, parent: object):
         self.data = data
-        self.leftChild = None
-        self.rightChild = None
-        self.parent = None
+        self.leftChild: Node = None
+        self.rightChild: Node = None
+        self.parent: Node = None
 
 
     def __repr__(self):
